@@ -1,23 +1,52 @@
 import { Router } from "express";
+import CartContainer from "../containers/cartContainer.js";
 
-export const router = Router();
+const router = Router();
 
-router.get('/:id/productos', (req, res) => {
+const cartContainer = new CartContainer('cart.json');
 
+router.get('/:id/productos', async (req, res) => {
+    const { id } = req.params;
+    const products = await cartContainer.getAllItems(id);
+
+    res.status(202).json(products);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    const id = await cartContainer.create();
 
+    res.status(201).json(id);
 });
 
-router.post('/:id/productos', (req, res) => {
+router.post('/:id/productos', async (req, res) => {
+    const { id } = req.params;
+    const { prodId } = req.body
+    await cartContainer.saveItem(id, prodId);
 
+    res.sendStatus(201);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleteCart = await cartContainer.deleteById(id);
+    if (deleteCart === false) {
+        res.sendStatus(400);
+        return
+    }
 
+    res.sendStatus(202);
 });
 
-router.delete('/:id/productos/:id_prod', (req, res) => {
+router.delete('/:id/productos/:id_prod', async (req, res) => {
+    const { id, id_prod } = req.params;
+    const deleteItem = await cartContainer.deleteItem(id, id_prod);
 
+    if (deleteItem === false) {
+        res.sendStatus(400);
+        return
+    }
+
+    res.sendStatus(202);
 });
+
+export default router
