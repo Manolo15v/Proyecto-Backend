@@ -6,9 +6,7 @@ class CartContainer extends Container {
         super(collecion),
         this.timestamp = Date.now()
     }
-
-
-
+    
     async create() {
         try {
             const carts = await this.getAll()
