@@ -1,6 +1,6 @@
-import Container from "./container.js";
+import Container from "../../containers/containerFs.js";
 
-export default class ProductsContainer extends Container {
+class ProductsContainer extends Container {
     constructor(filePath) {
         super(filePath)
     }
@@ -88,3 +88,7 @@ export default class ProductsContainer extends Container {
         console.log("Productos borrados");
     }
 }
+
+const productsContainer = new ProductsContainer('db/products.json');
+
+export default productsContainer

@@ -1,9 +1,7 @@
-import Container from "./container.js";
-import ProductsContainer from "./productsContainer.js";
+import Container from "../../containers/containerFs.js";
+import productsContainer from "./productsContainerMongoDb.js";
 
-const productsContainer = new ProductsContainer('productos.json')
-
-export default class CartContainer extends Container {
+class CartContainer extends Container {
     constructor(filePath) {
         super(filePath);
     }
@@ -59,6 +57,7 @@ export default class CartContainer extends Container {
         }
 
         const cartIndex = cart.indexOf(cartFound);
+        
         cartFound.products.push(product);
 
         cart[cartIndex] = cartFound;
@@ -123,3 +122,7 @@ export default class CartContainer extends Container {
         await super.writeFile(cart);
     }
 }
+
+const cartContainer = new CartContainer('cart.json');
+
+export default cartContainer
