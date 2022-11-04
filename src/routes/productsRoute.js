@@ -1,12 +1,14 @@
 import { Router } from "express";
-import isAdmin from "../middlewares/admin.js";
-import ProductsContainer from "../containers/productsContainer.js";
-
-const productsContainer = new ProductsContainer('productos.json');
+import isAdmin from "../middlewares/IsAdmin.js";
+import getPath from "../middlewares/getPath.js";
 
 const router = Router();
 
-router.get('/:id?', async (req, res) => {
+router.get('/:id?', getPath, async (req, res) => {
+    const path = res.locals.path
+
+    const {default: productsContainer} = await import(`../dao/${path}/productsContainer${path}.js`);
+
     const { id } = req.params;
 
     if (typeof (id) === "string") {
@@ -24,15 +26,22 @@ router.get('/:id?', async (req, res) => {
     res.json(await productsContainer.getAll());
 });
 
-router.post('/', isAdmin, async (req, res) => {
+router.post('/', isAdmin, getPath, async (req, res) => {
+    const path = res.locals.path
+
+    const {default: productsContainer} = await import(`../dao/${path}/productsContainer${path}.js`);
+
     await productsContainer.save(req.body);
 
     res.sendStatus(201);
 });
 
-router.put('/:id', isAdmin, async (req, res) => {
+router.put('/:id', isAdmin, getPath, async (req, res) => {
+    const path = res.locals.path
+
+    const {default: productsContainer} = await import(`../dao/${path}/productsContainer${path}.js`);
+
     const { id } = req.params;
-    console.log(req.body);
     const changeProduct = await productsContainer.change(id, req.body);
 
     if (changeProduct === false) {
@@ -43,7 +52,11 @@ router.put('/:id', isAdmin, async (req, res) => {
     res.sendStatus(202);
 });
 
-router.delete('/:id', isAdmin, async (req, res) => {
+router.delete('/:id', isAdmin, getPath, async (req, res) => {
+    const path = res.locals.path
+
+    const {default: productsContainer} = await import(`../dao/${path}/productsContainer${path}.js`);
+
     const { id } = req.params;
     const deleteProduct = await productsContainer.deleteById(id);
     if (deleteProduct === false) {
