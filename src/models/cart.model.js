@@ -5,13 +5,15 @@ const cartSchema = new Schema({
         type: Date,
         max: 100
     },
-    products: [{
-        timestamp: Date,
-        nombre: String,
-        codigo: String,
-        precio: Number,
-        stock: Number
-    }]
+    products: [
+        new Schema({
+            timestamp: Date,
+            nombre: String,
+            codigo: String,
+            precio: Number,
+            stock: Number
+        })
+    ]
 })
 
 export default model(cart, cartSchema)
