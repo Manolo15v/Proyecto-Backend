@@ -3,7 +3,6 @@ import { Schema, model } from "mongoose";
 const productsSchema = new Schema({
     timestamp: {
         type: Date,
-        max: 100,
         required: true
     },
     nombre: {
@@ -29,4 +28,4 @@ const productsSchema = new Schema({
     }
 })
 
-export default model(products, productsSchema)
+export default model('products', productsSchema)

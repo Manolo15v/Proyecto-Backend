@@ -31,9 +31,9 @@ router.post('/', isAdmin, getPath, async (req, res) => {
 
     const {default: productsContainer} = await import(`../dao/${path}/productsContainer${path}.js`);
 
-    await productsContainer.save(req.body);
+    const productId = await productsContainer.save(req.body);
 
-    res.sendStatus(201);
+    res.status(201).json(productId);
 });
 
 router.put('/:id', isAdmin, getPath, async (req, res) => {
