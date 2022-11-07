@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 const cartSchema = new Schema({
     timespamp: {
         type: Date,
-        max: 100
+        require: true
     },
     products: [
         new Schema({
@@ -16,4 +16,4 @@ const cartSchema = new Schema({
     ]
 })
 
-export default model(cart, cartSchema)
+export default model('cart', cartSchema)

@@ -8,10 +8,10 @@ class ProductsContainer extends Container {
 
     async save(data) {
         try {
-            const product = new this.model(data)
-            const newProduct = await newUser.save(product)
+            const product = new this.model({timestamp: this.timestamp  , ...data})
+            const newProduct = await product.save(product)
 
-            return newProduct.id
+            return newProduct._id.toString()
         } catch (error) {
             console.log(error);
         }
@@ -19,7 +19,7 @@ class ProductsContainer extends Container {
 
     async change(id, data) {
         try {
-            await product.updateOne({ _id: id }, { $set: data})
+            await this.model.updateOne({ _id: id }, { $set: data})
 
         } catch (error) {
             console.log(error);
@@ -48,7 +48,7 @@ class ProductsContainer extends Container {
 
     async deleteById(id) {
         try {
-            await this.model.delete({ _id: id })
+            await this.model.deleteOne({ _id: id })
         } catch (error) {
             console.log(error);
         }
