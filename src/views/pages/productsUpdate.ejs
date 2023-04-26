@@ -1,0 +1,85 @@
+<%- include("../partials/head") %>
+
+    <head />
+
+    <body>
+        <%- include("../partials/navAdmin") %>
+
+            <form class="p-5" id="form">
+                <div class="row g-3">
+                    <div class="col-sm-5 mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control">
+                    </div>
+
+                    <div class="col-sm-5 mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" name="price" class="form-control">
+                    </div>
+                    <div class="col-sm-5 mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" name="description" class="form-control" max="240">
+                    </div>
+
+                    <div class="col-sm-5 mb-3">
+                        <label class="form-label">Url of product image</label>
+                        <input type="url" name="urlImage" class="form-control" />
+                    </div>
+                    <div class="col-sm-5 mb-3">
+                        <label class="form-label">Stock</label>
+                        <input type="number" name="stock" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" id="submit" class="btn btn-primary">Update product</button>
+            </form>
+
+
+            <input type="text" class="d-none" id="prodId" value="<%= prodId %>">
+
+            <script>
+
+                const form = document.getElementById('form');
+                const button = document.getElementById('submit');
+
+                const prodId = document.getElementById('prodId').value;
+
+                button.addEventListener('click', e => sendDeleteProduct(e));
+
+                async function sendDeleteProduct(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form)
+
+                    let data = {}
+
+                    for (const pair of formData.entries()) {
+                        const [key , value] = pair
+                        if (value) {
+                            data[key] = value
+                        }
+                    }
+                   
+
+                    try {
+                        const res = await fetch(`/api/products/${prodId}`, {
+                            method: "PUT",
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        })
+                    } catch (error) {
+                        console.log(error);
+                        return
+                    }
+
+                    window.location.href = '/products';
+
+
+                }
+
+            </script>
+
+            <%- include("../partials/boostrapScrips") %>
+    </body>
+
+    </html>

@@ -1,0 +1,25 @@
+<%- include("../partials/head") %>    
+<head/>
+
+    <body>
+        <%- include("../partials/nav") %>
+        <div class="d-flex" >
+
+
+            <div class="container-fluid px-5 pt-3">
+                <h2>Thanks for using my API, bye!</h2>
+                <p>You'll be redirected to login page</p>                
+            </div>
+
+        </div>
+
+
+        <%- include("../partials/boostrapScrips") %>
+        <script>
+            setTimeout( () => {
+                document.location.href="/login";
+            }, 2000)
+        </script>
+    </body>
+
+</html>

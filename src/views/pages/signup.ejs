@@ -1,0 +1,100 @@
+<%- include("../partials/head") %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<head />
+
+<body>
+    <%- include("../partials/nav") %>
+
+
+        <form class="p-5" id="form">
+            <div class="row g-3">
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp" required>
+                    <div id="emailHelp" class="form-text">We'll "never" share your email with anyone else.</div>
+                </div>
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="number" name="age" id="age" class="form-control" max="120" required>
+                </div>
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Phone number</label>
+                    <input type="tel" id="phone" class="form-control" required >
+                </div>
+                <div class="col-sm-5 mb-3">
+                    <label class="form-label">Profile picture</label>
+                    <input class="form-control" name="profileImage" id="profileImage" type="file"
+                        accept="image/png, image/jpeg" required>
+                </div>
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary">Create account</button>
+        </form>
+
+
+        <script>
+
+            const form = document.getElementById('form');
+
+            const phoneField = document.getElementById('phone');
+
+            const phoneInput = window.intlTelInput(phoneField, {
+                preferredCountries: ["ar", "ve"],
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+
+            const button = document.getElementById('submit');
+
+
+
+            button.addEventListener('click', e => sendSignup(e));
+
+            async function sendSignup(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form)
+
+                const phoneValue = phoneInput.getNumber()
+
+                formData.append("phone", phoneValue)
+
+
+                if (isValidated(formData) === true) {
+                    try {
+                        const res = await fetch("/user/signup", {
+                            method: "POST",
+                            body: formData,
+                        })
+                    } catch (error) {
+                        console.log(error);
+                        return
+                    }
+                    
+                    window.location.href = '/';
+                }
+            }
+
+            function isValidated(form) {
+                let valid = true
+                form.forEach(value => !value ? valid = false : null)
+
+                return valid
+            }
+
+        </script>
+
+        <%- include("../partials/boostrapScrips") %>
+</body>
+
+</html>
