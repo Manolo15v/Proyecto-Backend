@@ -1,0 +1,44 @@
+<%- include("../partials/head") %>
+
+    <head />
+
+    <body>
+        <%- include("../partials/navAdmin") %>
+            <div class="container">
+
+                <form class="p-5" action="/api/products" method="POST" id="form">
+                    <div class="row g-3">
+                        <div class="col-sm-5 mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+
+                        <div class="col-sm-5 mb-3">
+                            <label class="form-label">Price</label>
+                            <input type="number" name="price" class="form-control" required>
+                        </div>
+                        <div class="col-sm-5 mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" name="description" class="form-control" max="240" required>
+                        </div>
+
+                        <div class="col-sm-5 mb-3">
+                            <label class="form-label">Url of product image</label>
+                            <input type="url" name="urlImage" class="form-control" required>
+                        </div>
+                        <div class="col-sm-5 mb-3">
+                            <label class="form-label">Stock</label>
+                            <input type="number" name="stock" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit" class="btn btn-primary">Create new product</button>
+                </form>
+
+
+            </div>
+
+            <%- include("../partials/boostrapScrips") %>
+    </body>
+
+    </html>

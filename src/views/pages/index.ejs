@@ -1,0 +1,62 @@
+<%- include("../partials/head") %>
+
+    <head />
+
+    <body>
+        <%- include("../partials/nav") %>
+            <div class="container">
+
+                <% if(!status) { %>
+                    <div class="">
+                        <h2>Please login or signup to see the products</h2>
+                    </div>
+                <% } else { %>
+                    <% if(products.length !== 0) { %>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% products.forEach(product=> { %>
+                                    
+                                    <tr>
+                                            
+                                        <td>
+                                            <img src="<%= product.urlImage %>" class="w-25 h-auto">
+                                        </td>
+                                        <td>
+                                            <%= product.title %>
+                                        </td>
+                                        <td>
+                                            <%= product.price %>
+                                        </td>
+                                            
+                                        
+                                        </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+
+
+                    <% } else { %>
+
+                        <div class="alert alert-danger" role="alert">
+                            <p>No hay productos</p>   
+                        </div>
+                    <% } %>
+
+                <% } %>
+
+            </div>
+
+
+            <%- include("../partials/boostrapScrips") %>
+    </body>
+
+    </html>

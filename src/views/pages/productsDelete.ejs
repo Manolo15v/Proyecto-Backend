@@ -1,0 +1,48 @@
+<%- include("../partials/head") %>
+
+    <head />
+
+    <body>
+        <%- include("../partials/navAdmin") %>
+            <div class="container">
+
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <label for="">Are you sure to delete this product?</label>
+                        <input type="text" class="d-none" id="prodId" value="<%= prodId %>">
+                    </div>
+                    <a href="/products"  class="btn btn-primary">Don't delete</a>
+                    <button type="submit" id="submit" class="btn btn-danger">Delete product</button>
+                </form>
+            </div>
+
+            <script>
+
+
+                const prodId = document.getElementById('prodId').value;
+                const button = document.getElementById('submit');
+
+                button.addEventListener('click', e => sendDeleteProduct(e));
+
+                async function sendDeleteProduct(e) {
+                    e.preventDefault();
+
+                    try {
+                        const res = await fetch(`/api/products/${prodId}`, {
+                            method: "DELETE"
+                        })
+                    } catch (error) {
+                        console.log(error);
+                        return
+                    }
+
+                    window.location.href = '/products';
+
+
+                }
+
+            </script>
+            <%- include("../partials/boostrapScrips") %>
+    </body>
+
+    </html>

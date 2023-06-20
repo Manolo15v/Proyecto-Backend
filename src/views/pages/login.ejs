@@ -1,0 +1,49 @@
+<%- include("../partials/head") %>
+    
+
+<head />
+
+<body>
+    <%- include("../partials/nav") %>
+        <div class="">
+            <div class="container-fluid px-5 pt-3">
+                <h2>Login</h2>
+                <span class="small text-secondary">
+                    Don't have an account ? Create one
+                    <a href="/signup"><strong>here</strong></a>
+                </span>
+
+                <div class="row g-3">
+
+                    <form class="row g-3" action="/user/login" method="POST">
+
+                        <div class="col-sm-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text">Email</span>
+                                <input type="email" name="email" required class="form-control" >
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text">Password</span>
+                                <input type="password" name="password" required class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary btn-sm" type="submit">Login</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <%- include("../partials/boostrapScrips") %>
+</body>
+
+</html>

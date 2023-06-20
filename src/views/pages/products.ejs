@@ -1,0 +1,61 @@
+<%- include("../partials/head") %>
+
+    <head />
+
+    <body>
+        <%- include("../partials/navAdmin") %>
+        <div class="container">
+
+            <% if(products.length !==0) { %>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(product=> { %>
+                            <tr>
+                                <td>
+                                    <img src="<%= product.urlImage %>" class="w-25 h-auto">
+                                </td>
+                            
+                                <td>
+                                    <%= product.title %>
+                                </td>
+                                <td>
+                                    <%= product.price %>
+                                </td>
+                                <td>
+                                    <%= product.stock %>
+                                </td>
+                                <td>
+                                    <a href="/products/update/<%= product.id %>" class="btn btn-primary">Update</a>
+                                    <a href="/products/delete/<%= product.id %>" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+
+            <% } else { %>
+
+                <div class="alert" role="alert">
+                    <p>Add products and they'll appear here</p>
+                </div>
+
+            <% } %>
+
+        </div>
+
+
+        <%- include("../partials/boostrapScrips") %>
+    </body>
+
+    </html>
